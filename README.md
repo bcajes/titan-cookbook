@@ -9,7 +9,7 @@ Ubuntu 12.04.
 
 ## Recipes
 
-Install Titan. See attributes configuration options.
+Default: Install Titan embedded with cassandra and connect to existing elastic search index backend. See attributes configuration options. 
 
 
 ## Dependencies
@@ -25,9 +25,9 @@ Vagrant should launch a titan node and an elastic search node for you to test ou
 
 
 ##TODO
-Add support for HBASE
-Fleshout documentation
-Add support for more titan options
+-Add support for HBASE
+-Fleshout documentation
+-Add support for more titan options
 
 
 ## Copyright & License
