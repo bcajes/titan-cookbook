@@ -1,4 +1,4 @@
-include_recipe "cassandra"
+include_recipe "cassandra::tarball"
 
 
 # 1. Download the Zip to /tmp
