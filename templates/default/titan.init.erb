@@ -20,8 +20,8 @@ TITAN_HOME=<%= node.titan.installation_dir %>
 TITAN_CONF=<%= node.titan.conf_dir %>
 TITAN_SERVER_CONF=$TITAN_CONF/<%= node.titan.server_conf_file_name  %>
 TITAN_PROPERTIES_CONF=$TITAN_CONF/<%= node.titan.properties_file_name  %>
-USER="root" #<%= node.titan.user %>
-GROUP="root" #<%= node.titan.user %>
+USER=<%= node.titan.user %>
+GROUP=<%= node.titan.user %>
 WAIT_FOR_START=10
 FD_LIMIT=100000
 

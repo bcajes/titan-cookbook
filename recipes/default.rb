@@ -18,7 +18,7 @@ end
 # 3. Copy to /usr/local/titan, update permissions
 package "unzip"
 bash "extract #{tmp}, move it to #{node.titan.installation_dir}" do
-  user "root"
+  user node.titan.user
   cwd  "/tmp"
 
   code <<-EOS
