@@ -46,6 +46,13 @@ template "/etc/init.d/titan" do
   mode  0755
 end
 
+#make sure conf dir has correct permissions
+directory "#{node.titan.conf_dir}" do
+  owner node["titan"]["user"]
+  group node["titan"]["user"]
+  mode "770"
+end
+
 #stop existing cassandra service, so that we can bring it up with titan
 service "cassandra" do 
   action :stop
