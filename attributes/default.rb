@@ -49,13 +49,58 @@ default[:titan] = {
   :storage_index_directory => "/tmp/local/var/data/elasticsearch",
   :storage_index_client_only => "true",
   :storage_index_local_mode => "false",
-  :storage_index_hostnames => "33.33.33.29",  #host defined in Vagrantfile for elasticsearch, also make sure network host settings in elastic search yml on the elastic search node is configured correctly in order for titan to connect to it.
+  :storage_index_hostnames => "33.33.33.29",  #testing: host defined in Vagrantfile for elasticsearch, also make sure network host settings in elastic search yml on the elastic search node is configured correctly in order for titan to connect to it.
   :installation_dir => "/tmp/local/titan/",
   :version => "0.3.1",  
   :properties_file_name => "titan-server-cassandra-es.properties",
   :server_conf_file_name => "titan-server-rexster.xml"
 }
 
+#reference: https://github.com/tinkerpop/rexster/wiki/Rexster-Configuration
+default[:titan][:rexster] = {
+  :http => {
+    :server_port => 8182,
+    :server_host => '0.0.0.0',
+    :base_uri => 'http://localhost',
+    :character_set => 'UTF-8',
+    :enable_jmx => false,
+    :max_post_size => 2097152,
+    :max_header_size => 8192,
+    :upload_timeout_millis => 30000,
+    :thread_pool => {
+      :worker => {
+        :core_size => 8,
+        :max_size => 8
+      },
+      :kernal => {
+        :core_size => 4,
+        :max_size => 4
+      }
+    }
+  },
+  :security => {
+    :authentication => {
+      :type => 'none', #'default' basic auth
+      :configuration => { #if type other than 'none' 
+        :users => [{:username => 'rexster', #replace
+                     :password => 'rexster' #replace
+                   }
+                  ]                   
+      }
+    }    
+  },
+  :shutdown_port => 8183,
+  :shutdown_host => '127.0.0.1',
+  :script_engines => [
+                      #{:name => 'gremlin-groovy', :reset_threshold => -1, :imports => ['com.company.ext_package.*'], :init_scripts => ['scripts/init.groovy'] }
+                     ]
+  #  TODO add metrics configuration 
+}
+
 default[:titan][:conf_dir] = File.join("#{default[:titan][:installation_dir]}", "config")
 
 default[:titan][:download_url] = "http://s3.thinkaurelius.com/downloads/titan/titan-all-#{default[:titan][:version]}.zip"
+
+
+
+

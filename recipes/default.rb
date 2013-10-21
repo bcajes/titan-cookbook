@@ -23,7 +23,8 @@ bash "extract #{tmp}, move it to #{node.titan.installation_dir}" do
 
   code <<-EOS
     rm -rf #{node.titan.installation_dir}
-    unzip #{tmp}
+    unzip -o #{tmp}
+    mkdir -p $(dirname #{node.titan.installation_dir}) 
     mv --force #{zip_dir} #{node.titan.installation_dir}
   EOS
 
@@ -33,6 +34,14 @@ end
 #create properties file
 template File.join(node["titan"]["conf_dir"], node["titan"]["properties_file_name"]) do
     source "titan-server-cassandra-es.properties.erb"
+    owner node["titan"]["user"]
+    group node["titan"]["user"]
+    mode  0644
+  end
+
+#create rexster server conf
+template File.join(node["titan"]["conf_dir"], node["titan"]["server_conf_file_name"]) do
+    source "titan-server-rexster.xml.erb"
     owner node["titan"]["user"]
     group node["titan"]["user"]
     mode  0644
