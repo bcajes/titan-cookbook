@@ -68,9 +68,9 @@ default[:titan][:rexster] = {
     :max_header_size => 8192,
     :upload_timeout_millis => 30000,
     :thread_pool => {
-      :worker => {
-        :core_size => 8,
-        :max_size => 8
+      :worker => { #upping sizes from default 8/8: https://github.com/tinkerpop/rexster/issues/271
+        :core_size => 16,
+        :max_size => 32
       },
       :kernal => {
         :core_size => 4,
