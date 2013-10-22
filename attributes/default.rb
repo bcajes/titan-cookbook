@@ -2,7 +2,7 @@
 normal[:cassandra] = {
   :cluster_name => "Test Cluster",
   :initial_token => "",
-  :version => '1.2.9',
+  :version => '1.2.11',
   :user => "cassandra",
   :jvm  => {
     :xms => 64,
@@ -30,8 +30,8 @@ normal[:cassandra] = {
   :snitch           => 'SimpleSnitch'
 }
 normal[:cassandra][:tarball] = {
-  :url => "http://www.eu.apache.org/dist/cassandra/#{normal[:cassandra][:version]}/apache-cassandra-#{normal[:cassandra][:version]}-bin.tar.gz",
-  :md5 => "f6a5738200b281ef098e90be3fa30cf2"
+  :url => "http://www.apache.org/dist/cassandra/#{normal[:cassandra][:version]}/apache-cassandra-#{normal[:cassandra][:version]}-bin.tar.gz",
+  :md5 => "c6f80161bcc90b9f5e909e9de388957a"
 }
 
 #cassandra works best with oracle jdk 6, let's override default java recipe attributes to install oracle java instead of openjdk
@@ -96,6 +96,10 @@ default[:titan][:rexster] = {
                      ]
   #  TODO add metrics configuration 
 }
+
+default[:titan][:ext_pkgs] = [
+                              #{:file_name => ext_pkg.jar, :uri => ftp://user:pw@example.com/ext/ext_pkg.jar}
+                             ]
 
 default[:titan][:conf_dir] = File.join("#{default[:titan][:installation_dir]}", "config")
 

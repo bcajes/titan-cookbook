@@ -10,8 +10,7 @@ zip_dir = File.join(td, "titan-all-#{node.titan.version}")
 
 remote_file(tmp) do
   source node.titan.download_url
-
-  not_if {File.exists?("#{tmp}")}
+  action :create_if_missing
 end
 
 # 2. Extract it
@@ -47,6 +46,8 @@ template File.join(node["titan"]["conf_dir"], node["titan"]["server_conf_file_na
     mode  0644
   end
 
+#handle external dependencies
+include_recipe "titan::ext"
 
 # 6. init.d Service                                                                              
 template "/etc/init.d/titan" do
