@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rexster>
+    <http>
+        <server-port><%= node[:titan][:rexster][:http][:server_port] %></server-port>
+        <server-host><%= node[:titan][:rexster][:http][:server_host] %></server-host>
+        <base-uri><%= node[:titan][:rexster][:http][:base_uri] %></base-uri>
+        <character-set><%= node[:titan][:rexster][:http][:character_set] %></character-set>
+        <enable-jmx><%= node[:titan][:rexster][:http][:enable_jmx] %></enable-jmx>
+        <enable-doghouse><%= node[:titan][:rexster][:http][:enable_doghouse] %></enable-doghouse>
+        <max-post-size><%= node[:titan][:rexster][:http][:max_post_size] %></max-post-size>
+        <max-header-size><%= node[:titan][:rexster][:http][:max_header_size] %></max-header-size>
+        <upload-timeout-millis><%= node[:titan][:rexster][:http][:upload_timeout_millis] %></upload-timeout-millis>
+        <thread-pool>
+            <worker>
+                <core-size><%= node[:titan][:rexster][:http][:thread_pool][:worker][:core_size] %></core-size>
+                <max-size><%= node[:titan][:rexster][:http][:thread_pool][:worker][:max_size] %></max-size>
+            </worker>
+            <kernal>
+                <core-size><%= node[:titan][:rexster][:http][:thread_pool][:kernal][:core_size] %></core-size>
+                <max-size><%= node[:titan][:rexster][:http][:thread_pool][:kernal][:max_size] %></max-size>
+            </kernal>
+        </thread-pool>
+        <io-strategy><%= node[:titan][:rexster][:http][:io_strategy] %></io-strategy>
+    </http>
+    <rexpro>
+      <server-port><%= node[:titan][:rexster][:rexpro][:server_port] %></server-port>
+      <server-host><%= node[:titan][:rexster][:rexpro][:server_host] %></server-host>
+        <session-max-idle><%= node[:titan][:rexster][:rexpro][:session_max_idle] %></session-max-idle>
+        <session-check-interval><%= node[:titan][:rexster][:rexpro][:session_check_interval] %></session-check-interval>
+        <connection-max-idle><%= node[:titan][:rexster][:rexpro][:connection_max_idle] %></connection-max-idle>
+        <connection-check-interval><%= node[:titan][:rexster][:rexpro][:connection_check_interval] %></connection-check-interval>
+        <enable-jmx><%= node[:titan][:rexster][:rexpro][:enable_jmx] %></enable-jmx>
+        <thread-pool>
+            <worker>
+                <core-size><%= node[:titan][:rexster][:rexpro][:thread_pool][:worker][:core_size] %></core-size>
+                <max-size><%= node[:titan][:rexster][:rexpro][:thread_pool][:worker][:max_size] %></max-size>
+            </worker>
+            <kernal>
+                <core-size><%= node[:titan][:rexster][:rexpro][:thread_pool][:kernal][:core_size] %></core-size>
+                <max-size><%= node[:titan][:rexster][:rexpro][:thread_pool][:kernal][:max_size] %></max-size>
+            </kernal>
+        </thread-pool>
+        <io-strategy><%= node[:titan][:rexster][:rexpro][:io_strategy] %></io-strategy>
+    </rexpro>
+    <shutdown-port>8183</shutdown-port>
+    <shutdown-host>127.0.0.1</shutdown-host>
+    <script-engines>
+        <script-engine>
+            <name>gremlin-groovy</name>
+            <reset-threshold>-1</reset-threshold>
+            <imports>com.tinkerpop.gremlin.*,com.tinkerpop.gremlin.java.*,com.tinkerpop.gremlin.pipes.filter.*,com.tinkerpop.gremlin.pipes.sideeffect.*,com.tinkerpop.gremlin.pipes.transform.*,com.tinkerpop.blueprints.*,com.tinkerpop.blueprints.impls.*,com.tinkerpop.blueprints.impls.tg.*,com.tinkerpop.blueprints.impls.neo4j.*,com.tinkerpop.blueprints.impls.neo4j.batch.*,com.tinkerpop.blueprints.impls.orient.*,com.tinkerpop.blueprints.impls.orient.batch.*,com.tinkerpop.blueprints.impls.dex.*,com.tinkerpop.blueprints.impls.rexster.*,com.tinkerpop.blueprints.impls.sail.*,com.tinkerpop.blueprints.impls.sail.impls.*,com.tinkerpop.blueprints.util.*,com.tinkerpop.blueprints.util.io.*,com.tinkerpop.blueprints.util.io.gml.*,com.tinkerpop.blueprints.util.io.graphml.*,com.tinkerpop.blueprints.util.io.graphson.*,com.tinkerpop.blueprints.util.wrappers.*,com.tinkerpop.blueprints.util.wrappers.batch.*,com.tinkerpop.blueprints.util.wrappers.batch.cache.*,com.tinkerpop.blueprints.util.wrappers.event.*,com.tinkerpop.blueprints.util.wrappers.event.listener.*,com.tinkerpop.blueprints.util.wrappers.id.*,com.tinkerpop.blueprints.util.wrappers.partition.*,com.tinkerpop.blueprints.util.wrappers.readonly.*,com.tinkerpop.blueprints.oupls.sail.*,com.tinkerpop.blueprints.oupls.sail.pg.*,com.tinkerpop.blueprints.oupls.jung.*,com.tinkerpop.pipes.*,com.tinkerpop.pipes.branch.*,com.tinkerpop.pipes.filter.*,com.tinkerpop.pipes.sideeffect.*,com.tinkerpop.pipes.transform.*,com.tinkerpop.pipes.util.*,com.tinkerpop.pipes.util.iterators.*,com.tinkerpop.pipes.util.structures.*,org.apache.commons.configuration.*,com.thinkaurelius.titan.core.*,com.thinkaurelius.titan.core.attribute.*,com.thinkaurelius.titan.core.util.*,com.thinkaurelius.titan.example.*,org.apache.commons.configuration.*,com.tinkerpop.gremlin.Tokens.T,com.tinkerpop.gremlin.groovy.*</imports>
+            <static-imports>com.tinkerpop.blueprints.Direction.*,com.tinkerpop.blueprints.TransactionalGraph$Conclusion.*,com.tinkerpop.blueprints.Compare.*,com.thinkaurelius.titan.core.attribute.Geo.*,com.thinkaurelius.titan.core.attribute.Text.*,com.thinkaurelius.titan.core.TypeMaker$UniquenessConsistency.*,com.tinkerpop.blueprints.Query$Compare.*</static-imports>
+        </script-engine>
+    </script-engines>
+    <security>
+      <authentication>
+        <type><%= node[:titan][:rexster][:security][:authentication][:type] %></type>
+	<configuration>
+          <users>
+	    <% node[:titan][:rexster][:security][:authentication][:configuration][:users].each do |user| %>
+	    <user>
+	      <username><%= user[:username] %></username>
+	      <password><%= user[:password] %></password>
+	    </user>
+	    <% end %>
+          </users>
+	</configuration>
+      </authentication>
+    </security>
+    <shutdown-port><%= node[:titan][:rexster][:shutdown_port] %></shutdown-port>
+    <shutdown-host><%= node[:titan][:rexster][:shutdown_host] %></shutdown-host>
+    <metrics>
+        <reporter>
+            <type>jmx</type>
+        </reporter>
+        <reporter>
+            <type>http</type>
+        </reporter>
+        <reporter>
+            <type>console</type>
+            <properties>
+                <rates-time-unit>SECONDS</rates-time-unit>
+                <duration-time-unit>SECONDS</duration-time-unit>
+                <report-period>10</report-period>
+                <report-time-unit>MINUTES</report-time-unit>
+                <includes>http.rest.*</includes>
+                <excludes>http.rest.*.delete</excludes>
+            </properties>
+        </reporter>
+    </metrics>
+    <graphs>
+        <graph>
+            <graph-name>graph</graph-name>
+            <graph-type>com.thinkaurelius.titan.tinkerpop.rexster.TitanGraphConfiguration</graph-type>
+            <!-- <graph-location>/tmp/titan</graph-location> -->
+            <graph-read-only>false</graph-read-only>
+            <properties>
+                <storage.backend>cassandra</storage.backend>
+                <storage.index.search.backend>elasticsearch</storage.index.search.backend>
+                <storage.index.search.directory><%= node[:titan][:storage][:index_directory] %></storage.index.search.directory>
+                <storage.index.search.client-only><%= node[:titan][:storage][:index_client_only] %></storage.index.search.client-only>
+                <storage.index.search.local-mode><%= node[:titan][:storage][:index_local_mode] %></storage.index.search.local-mode>
+            </properties>
+            <extensions>
+              <allows>
+                <allow>tp:gremlin</allow>
+              </allows>
+            </extensions>
+        </graph>
+    </graphs>
+</rexster>

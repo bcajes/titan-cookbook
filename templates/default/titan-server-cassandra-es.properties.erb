@@ -1,10 +1,11 @@
-storage.backend=<%= node[:titan][:storage_backend] %>
-storage.cassandra-config-dir=file://<%= node[:titan][:storage_cassandra_config] %>
+storage.backend=embeddedcassandra
+storage.cassandra-config-dir=<%= node[:titan][:storage][:cassandra_config] %>
+cache.db-cache =<%= node[:titan][:storage][:db_cache] %>
+cache.db-cache-clean-wait =<%= node[:titan][:storage][:db_cache_clean_wait] %>
+cache.db-cache-time =<%= node[:titan][:storage][:db_cache_time] %>
+cache.db-cache-size =<%= node[:titan][:storage][:db_cache_size] %>
 
-<% if node[:titan][:storage_index_backend] %>
-storage.index.<%= node[:titan][:storage_index_name] %>.backend=elasticsearch
-storage.index.<%= node[:titan][:storage_index_name] %>.directory=<%= node[:titan][:storage_index_directory] %>
-storage.index.<%= node[:titan][:storage_index_name] %>.client-only=<%= node[:titan][:storage_index_client_only] %>
-storage.index.<%= node[:titan][:storage_index_name] %>.local-mode=<%= node[:titan][:storage_index_local_mode] %>
-storage.index.<%= node[:titan][:storage_index_name] %>.hostname=<%= node[:titan][:storage_index_hostnames] %>
-<% end %>
+storage.index.search.backend=elasticsearch
+storage.index.search.directory=<%= node[:titan][:storage][:index_directory] %>
+storage.index.search.client-only=<%= node[:titan][:storage][:index_client_only] %>
+storage.index.search.local-mode=<%= node[:titan][:storage][:index_local_mode] %>

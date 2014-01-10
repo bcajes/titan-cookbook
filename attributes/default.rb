@@ -1,69 +1,44 @@
-#override default cassandra recipe attributes
-normal[:cassandra] = {
-  :cluster_name => "Test Cluster",
-  :initial_token => "",
-  :version => '1.2.11',
-  :user => "cassandra",
-  :jvm  => {
-    :xms => 64,
-    :xmx => 1024
-  },
-  :limits => {
-    :memlock => 'unlimited',
-    :nofile  => 48000
-  },
-  :installation_dir => "/tmp/cassandra/",
-  :bin_dir          => "/tmp/cassandra/bin/",
-  :lib_dir          => "/tmp/cassandra/lib/",
-  :conf_dir         => "/tmp/cassandra/conf/",
-  :data_root_dir    => "/tmp/lib/cassandra/",
-  :commitlog_dir    => "/tmp/lib/cassandra/",
-  :log_dir          => "/tmp/log/cassandra/",
-  :listen_address => node[:network][:interfaces][:eth1][:addresses].find {|addr, addr_info| addr_info[:family] == "inet"}.first, #should match Vagrantfile cassandra host,
-  :rpc_address => node[:network][:interfaces][:eth1][:addresses].find {|addr, addr_info| addr_info[:family] == "inet"}.first, #should match Vagrantfile cassandra host,
-  :max_heap_size    => nil,
-  :heap_new_size    => nil,
-  :vnodes           => 256,
-  :seeds            => ["33.33.33.28"], #host defined in Vagrant file
-  :concurrent_reads => 32,
-  :concurrent_writes => 32,
-  :snitch           => 'SimpleSnitch'
-}
-normal[:cassandra][:tarball] = {
-  :url => "http://www.apache.org/dist/cassandra/#{normal[:cassandra][:version]}/apache-cassandra-#{normal[:cassandra][:version]}-bin.tar.gz",
-  :md5 => "c6f80161bcc90b9f5e909e9de388957a"
-}
-
-#cassandra works best with oracle jdk 6, let's override default java recipe attributes to install oracle java instead of openjdk
-normal['java']['install_flavor'] = "oracle"
-normal['java']['jdk_version'] = '6'
-normal['java']['oracle']['accept_oracle_download_terms'] = true
+#Titan 0.4+ runs on java 7
+default['java']['install_flavor'] = "oracle"
+default['java']['jdk_version'] = '7'
+default['java']['oracle']['accept_oracle_download_terms'] = true
 
 #titan attributes
 default[:titan] = {
-  :user => "cassandra", # shares backend storage with cassandra in embedded mode, so we should probabbly run titan as cassandra
-  :storage_backend => "embeddedcassandra",
-  :storage_cassandra_config => node[:cassandra][:conf_dir] + "cassandra.yaml",
-  :storage_index_backend => "elasticsearch",
-  :storage_index_name => "search",
-  :storage_index_directory => "/tmp/local/var/data/elasticsearch",
-  :storage_index_client_only => "true",
-  :storage_index_local_mode => "false",
-  :storage_index_hostnames => "33.33.33.29",  #testing: host defined in Vagrantfile for elasticsearch, also make sure network host settings in elastic search yml on the elastic search node is configured correctly in order for titan to connect to it.
-  :installation_dir => "/tmp/local/titan/",
-  :version => "0.3.1",  
-  :properties_file_name => "titan-server-cassandra-es.properties",
-  :server_conf_file_name => "titan-server-rexster.xml"
+  :installation_dir => "/opt/titan/",
+  :version => "0.4.2",  
+  :user => "titan", 
+  :group => "titan",
+  :install_dir_permissions => "755"
+}
+
+default[:titan][:conf_dir] = File.join("#{default[:titan][:installation_dir]}", "conf")
+default[:titan][:start_command] = File.join("#{default[:titan][:installation_dir]}", "bin/titan.sh") + " -v -c cassandra-es start"
+default[:titan][:stop_command] = File.join("#{default[:titan][:installation_dir]}", "bin/titan.sh") + " stop"
+
+
+default[:titan][:storage] = {
+  :properties => File.join("#{node.titan.conf_dir}","titan-server-cassandra-es.properties.erb"),
+  :cassandra_config => File.join("#{node.titan.conf_dir}","cassandra.yaml"),
+  :db_cache => true,
+  :db_cache_clean_wait => 0,
+  :db_cache_time => 0,
+  :db_cache_size => 0.25,
+  :index_directory => File.join("#{node.titan.installation_dir}","db/es"),
+  :index_client_only => false, #Whether this node is client node with no data. https://github.com/thinkaurelius/titan/wiki/Using-Elastic-Search
+  :index_local_mode => true,
 }
 
 #reference: https://github.com/tinkerpop/rexster/wiki/Rexster-Configuration
 default[:titan][:rexster] = {
+  :config => File.join("#{node.titan.conf_dir}","rexster-cassandra-es.xml"),
   :http => {
     :server_port => 8182,
     :server_host => '0.0.0.0',
     :base_uri => 'http://localhost',
     :character_set => 'UTF-8',
     :enable_jmx => false,
+    :enable_doghouse => true,
     :max_post_size => 2097152,
     :max_header_size => 8192,
     :upload_timeout_millis => 30000,
@@ -76,7 +51,28 @@ default[:titan][:rexster] = {
         :core_size => 4,
         :max_size => 4
       }
-    }
+    },
+    :io_strategy => 'leader-follower'
+  },
+  :rexpro => {
+    :server_port => 8184,
+    :server_host => '0.0.0.0',
+    :session_max_idle => 1790000,
+    :session_check_interval => 3000000,
+    :connection_max_idle => 180000,
+    :connection_check_interval => 3000000,
+    :enable_jmx => false,
+    :thread_pool => {
+      :worker => { #upping sizes from default 8/8: https://github.com/tinkerpop/rexster/issues/271
+        :core_size => 16,
+        :max_size => 32
+      },
+      :kernal => {
+        :core_size => 4,
+        :max_size => 4
+      }
+    },
+    :io_strategy => 'leader-follower'
   },
   :security => {
     :authentication => {
@@ -92,18 +88,20 @@ default[:titan][:rexster] = {
   :shutdown_port => 8183,
   :shutdown_host => '127.0.0.1',
   :script_engines => [
-                      #{:name => 'gremlin-groovy', :reset_threshold => -1, :imports => ['com.company.ext_package.*'], :init_scripts => ['scripts/init.groovy'] }
+                      #  TODO 
+                      #{:name => 'gremlin-groovy', :reset_threshold => -1, :imports => ['com.company.ext_package.*'] }
                      ]
-  #  TODO add metrics configuration 
+
+# TODO metrics block
+# TODO graphs block
+  
 }
 
 default[:titan][:ext_pkgs] = [
                               #{:file_name => ext_pkg.jar, :uri => ftp://user:pw@example.com/ext/ext_pkg.jar}
                              ]
 
-default[:titan][:conf_dir] = File.join("#{default[:titan][:installation_dir]}", "config")
-
-default[:titan][:download_url] = "http://s3.thinkaurelius.com/downloads/titan/titan-all-#{default[:titan][:version]}.zip"
+default[:titan][:download_url] = "http://s3.thinkaurelius.com/downloads/titan/titan-server-#{default[:titan][:version]}.zip"
 
 
 
