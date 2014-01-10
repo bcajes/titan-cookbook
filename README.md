@@ -16,7 +16,7 @@ Default: Install Titan Server embedded with cassandra and elastic search index b
 
 Cookbook dependecies managed by Berkshelf (see Berskfile)
 
-##Vagrant test cluster usage
+##Vagrant test node usage
 
 1. Install [Vagrant](http://www.vagrantup.com/)
 2. Install [Berkshelf](http://berkshelf.com/)
