@@ -1,6 +1,6 @@
 # Titan graph DB Chef Cookbook
 
-Installs Titan embedded within cassandra + connects to elastic search as index backend
+Installs Titan Server embedded with cassandra + elasticsearch as index backend
 
 ## Tested OS Distributions
 
