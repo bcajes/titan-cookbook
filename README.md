@@ -1,6 +1,6 @@
 # Titan graph DB Chef Cookbook
 
-Installs Titan embedded within cassandra + connects to elastic search as index backend
+Installs Titan Server embedded with cassandra + elasticsearch as index backend
 
 ## Tested OS Distributions
 
@@ -9,14 +9,14 @@ Ubuntu 12.04.
 
 ## Recipes
 
-Default: Install Titan embedded with cassandra and connect to existing elastic search index backend. See attributes for configuration options. 
+Default: Install Titan Server embedded with cassandra and elastic search index backend. See attributes for configuration options. 
 
 
 ## Dependencies
 
 Cookbook dependecies managed by Berkshelf (see Berskfile)
 
-##Vagrant test cluster usage
+##Vagrant test node usage
 
 1. Install [Vagrant](http://www.vagrantup.com/)
 2. Install [Berkshelf](http://berkshelf.com/)
@@ -25,8 +25,8 @@ Cookbook dependecies managed by Berkshelf (see Berskfile)
 5. cookbook_root$ vagrant plugin install vagrant-berkshelf
 6. cookbook_root$ berks install
 7. cookbook_root$ vagrant up
+8. cookbook_root$ curl http://33.33.33.28:8182/graphs/
 
-Vagrant should launch a titan node and an elastic search node for you to test out.
 
 
 ##TODO
@@ -36,6 +36,6 @@ Vagrant should launch a titan node and an elastic search node for you to test ou
 
 ## Copyright & License
 
-Brian Cajes, 2013
+Brian Cajes, 2014
 
 Released under the [Apache 2.0 License](http://www.apache.org/licenses/LICENSE-2.0.html).
