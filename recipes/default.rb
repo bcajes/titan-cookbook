@@ -53,7 +53,7 @@ bash "extract #{tmp}, move it to #{node.titan.installation_dir}" do
 end
 
 #create cassandra configuration
-if node[:titan][:cassandra][:manage_cassandra_config]
+if node[:titan][:manage_cassandra_config]
   template node["titan"]["storage"]["cassandra_config"] do
     source "cassandra.yaml.erb"
     owner node["titan"]["user"]

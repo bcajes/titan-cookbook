@@ -99,7 +99,7 @@ default[:titan][:rexster] = {
 
 # set to false if you want to manage your own cassandra.yaml file,
 # which is useful for more specialized configurations
-default[:titan][:cassandra][:manage_cassandra_config] = true
+default[:titan][:manage_cassandra_config] = true
 
 # TODO add useful cassandra attributes
 
