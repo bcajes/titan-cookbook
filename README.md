@@ -11,6 +11,7 @@ Ubuntu 12.04.
 
 Default: Install Titan Server embedded with cassandra and elastic search index backend. See attributes for configuration options. 
 
+If you want to install a multi-node install of titan, you will need to set the `node[:titan][:cassandra]` attributes. 
 
 ## Dependencies
 
