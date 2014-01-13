@@ -52,6 +52,26 @@ bash "extract #{tmp}, move it to #{node.titan.installation_dir}" do
   creates "#{node.titan.installation_dir}/bin/titan.sh"
 end
 
+#create cassandra configuration
+if node[:titan][:cassandra][:manage_cassandra_config]
+  template node["titan"]["storage"]["cassandra_config"] do
+    source "cassandra.yaml.erb"
+    owner node["titan"]["user"]
+    group node["titan"]["group"]
+    mode  node["titan"]["install_dir_permissions"]
+    variables(
+      :broadcast_address => node["titan"]["cassandra"]["broadcast_address"],
+      :concurrent_reads => node["titan"]["cassandra"]["concurrent_reads"],
+      :concurrent_writes => node["titan"]["cassandra"]["concurrent_writes"],
+      :cluster_name => node["titan"]["cassandra"]["cluster_name"], 
+      :initial_token => node["titan"]["cassandra"]["initial_token"],
+      :listen_address => node["titan"]["cassandra"]["listen_address"],
+      :rpc_address => node["titan"]["cassandra"]["rpc_address"],
+      :seeds => node["titan"]["cassandra"]["seeds"]
+    )
+  end
+end
+  
 #create properties file
 template node["titan"]["storage"]["properties"] do
     source "titan-server-cassandra-es.properties.erb"

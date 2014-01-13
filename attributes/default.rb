@@ -97,6 +97,24 @@ default[:titan][:rexster] = {
   
 }
 
+# set to false if you want to manage your own cassandra.yaml file,
+# which is useful for more specialized configurations
+default[:titan][:cassandra][:manage_cassandra_config] = true
+
+# TODO add useful cassandra attributes
+
+# see cassandra.yaml.erb for documentation on these options
+default[:titan][:cassandra] = {
+  :broadcast_address => '',
+  :concurrent_reads => 32,
+  :concurrent_writes => 32,
+  :cluster_name => 'Titan Test Cluster',
+  :initial_token => '',
+  :listen_address => 'localhost',
+  :rpc_address => 'localhost',
+  :seeds => '127.0.0.1'
+}
+
 default[:titan][:ext_pkgs] = [
                               #{:file_name => ext_pkg.jar, :uri => ftp://user:pw@example.com/ext/ext_pkg.jar}
                              ]
