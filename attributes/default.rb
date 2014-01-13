@@ -18,7 +18,7 @@ default[:titan][:stop_command] = File.join("#{default[:titan][:installation_dir]
 
 
 default[:titan][:storage] = {
-  :properties => File.join("#{node.titan.conf_dir}","titan-server-cassandra-es.properties.erb"),
+  :properties => File.join("#{node.titan.conf_dir}","titan-server-cassandra-es.properties"),
   :cassandra_config => File.join("#{node.titan.conf_dir}","cassandra.yaml"),
   :db_cache => true,
   :db_cache_clean_wait => 0,
