@@ -109,8 +109,9 @@ default[:titan][:cassandra] = {
   :concurrent_reads => 32,
   :concurrent_writes => 32,
   :cluster_name => 'Titan Test Cluster',
-  :initial_token => '',
+  :initial_token => nil,
   :listen_address => 'localhost',
+  :num_tokens => nil,
   :rpc_address => 'localhost',
   :seeds => '127.0.0.1'
 }
