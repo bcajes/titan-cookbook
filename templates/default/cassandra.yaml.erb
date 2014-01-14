@@ -1,3 +1,5 @@
+# DO NOT EDIT - Automatically managed by chef
+
 # Cassandra storage config YAML 
 
 # NOTE:
@@ -21,7 +23,11 @@ cluster_name: '<%= @cluster_name %>'
 #
 # If you already have a cluster with 1 token per node, and wish to migrate to 
 # multiple tokens per node, see http://wiki.apache.org/cassandra/Operations
+<% if @num_tokens.nil? %>
 # num_tokens: 256
+<% else %>
+num_tokens: <%= @num_tokens %>
+<% end %>
 
 # If you haven't specified num_tokens, or have set it to the default of 1 then
 # you should always specify InitialToken when setting up a production
@@ -34,7 +40,11 @@ cluster_name: '<%= @cluster_name %>'
 # the heaviest-loaded existing node.  If there is no load information
 # available, such as is the case with a new cluster, it will pick
 # a random token, which will lead to hot spots.
+<% if @initial_token.nil? %>
+# initial_token:
+<% else %>
 initial_token: <%= @initial_token %>
+<% end %>
 
 # See http://wiki.apache.org/cassandra/HintedHandoff
 hinted_handoff_enabled: true

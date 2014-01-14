@@ -66,6 +66,7 @@ if node[:titan][:manage_cassandra_config]
       :cluster_name => node["titan"]["cassandra"]["cluster_name"], 
       :initial_token => node["titan"]["cassandra"]["initial_token"],
       :listen_address => node["titan"]["cassandra"]["listen_address"],
+      :num_tokens => node["titan"]["cassandra"]["num_tokens"],
       :rpc_address => node["titan"]["cassandra"]["rpc_address"],
       :seeds => node["titan"]["cassandra"]["seeds"]
     )
