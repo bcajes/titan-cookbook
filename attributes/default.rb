@@ -1,12 +1,12 @@
 #Titan 0.4+ runs on java 7
-default['java']['install_flavor'] = "oracle"
 default['java']['jdk_version'] = '7'
-default['java']['oracle']['accept_oracle_download_terms'] = true
+
+
 
 #titan attributes
 default[:titan] = {
   :installation_dir => "/opt/titan/",
-  :version => "0.4.2",  
+  :version => "0.4.4",  
   :user => "titan", 
   :group => "titan",
   :install_dir_permissions => "755"
@@ -20,13 +20,16 @@ default[:titan][:stop_command] = File.join("#{default[:titan][:installation_dir]
 default[:titan][:storage] = {
   :properties => File.join("#{node.titan.conf_dir}","titan-server-cassandra-es.properties"),
   :cassandra_config => File.join("#{node.titan.conf_dir}","cassandra.yaml"),
+  :storage_backend => "cassandra",
   :db_cache => true,
   :db_cache_clean_wait => 0,
   :db_cache_time => 0,
   :db_cache_size => 0.25,
+  :index_backend => "elasticsearch",
   :index_directory => File.join("#{node.titan.installation_dir}","db/es"),
   :index_client_only => false, #Whether this node is client node with no data. https://github.com/thinkaurelius/titan/wiki/Using-Elastic-Search
   :index_local_mode => true,
+  :index_hostname => "127.0.0.1" #hostname of ES if not running embedded
 }
 
 #reference: https://github.com/tinkerpop/rexster/wiki/Rexster-Configuration
@@ -87,10 +90,10 @@ default[:titan][:rexster] = {
   },
   :shutdown_port => 8183,
   :shutdown_host => '127.0.0.1',
-  :script_engines => [
-                      #  TODO 
-                      #{:name => 'gremlin-groovy', :reset_threshold => -1, :imports => ['com.company.ext_package.*'] }
-                     ]
+  :script_engines => { :init_scripts => nil,
+    :imports => "com.tinkerpop.gremlin.*,com.tinkerpop.gremlin.java.*,com.tinkerpop.gremlin.pipes.filter.*,com.tinkerpop.gremlin.pipes.sideeffect.*,com.tinkerpop.gremlin.pipes.transform.*,com.tinkerpop.blueprints.*,com.tinkerpop.blueprints.impls.*,com.tinkerpop.blueprints.impls.tg.*,com.tinkerpop.blueprints.impls.neo4j.*,com.tinkerpop.blueprints.impls.neo4j.batch.*,com.tinkerpop.blueprints.impls.orient.*,com.tinkerpop.blueprints.impls.orient.batch.*,com.tinkerpop.blueprints.impls.dex.*,com.tinkerpop.blueprints.impls.rexster.*,com.tinkerpop.blueprints.impls.sail.*,com.tinkerpop.blueprints.impls.sail.impls.*,com.tinkerpop.blueprints.util.*,com.tinkerpop.blueprints.util.io.*,com.tinkerpop.blueprints.util.io.gml.*,com.tinkerpop.blueprints.util.io.graphml.*,com.tinkerpop.blueprints.util.io.graphson.*,com.tinkerpop.blueprints.util.wrappers.*,com.tinkerpop.blueprints.util.wrappers.batch.*,com.tinkerpop.blueprints.util.wrappers.batch.cache.*,com.tinkerpop.blueprints.util.wrappers.event.*,com.tinkerpop.blueprints.util.wrappers.event.listener.*,com.tinkerpop.blueprints.util.wrappers.id.*,com.tinkerpop.blueprints.util.wrappers.partition.*,com.tinkerpop.blueprints.util.wrappers.readonly.*,com.tinkerpop.blueprints.oupls.sail.*,com.tinkerpop.blueprints.oupls.sail.pg.*,com.tinkerpop.blueprints.oupls.jung.*,com.tinkerpop.pipes.*,com.tinkerpop.pipes.branch.*,com.tinkerpop.pipes.filter.*,com.tinkerpop.pipes.sideeffect.*,com.tinkerpop.pipes.transform.*,com.tinkerpop.pipes.util.*,com.tinkerpop.pipes.util.iterators.*,com.tinkerpop.pipes.util.structures.*,org.apache.commons.configuration.*,com.thinkaurelius.titan.core.*,com.thinkaurelius.titan.core.attribute.*,com.thinkaurelius.titan.core.util.*,com.thinkaurelius.titan.example.*,org.apache.commons.configuration.*,com.tinkerpop.gremlin.Tokens.T,com.tinkerpop.gremlin.groovy.*", 
+    :static_imports => "com.tinkerpop.blueprints.Direction.*,com.tinkerpop.blueprints.TransactionalGraph$Conclusion.*,com.tinkerpop.blueprints.Compare.*,com.thinkaurelius.titan.core.attribute.Geo.*,com.thinkaurelius.titan.core.attribute.Text.*,com.thinkaurelius.titan.core.TypeMaker$UniquenessConsistency.*,com.tinkerpop.blueprints.Query$Compare.*"},
+            
 
 # TODO metrics block
 # TODO graphs block

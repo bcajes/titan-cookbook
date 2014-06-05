@@ -10,6 +10,7 @@ Vagrant.configure("2") do |config|
     end
     titan.vm.hostname = "titan"		 
     titan.vm.provision :chef_solo do |chef|
+      chef.add_recipe "apt"
       chef.add_recipe "titan"
     end
   end

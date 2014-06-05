@@ -48,8 +48,11 @@
         <script-engine>
             <name>gremlin-groovy</name>
             <reset-threshold>-1</reset-threshold>
-            <imports>com.tinkerpop.gremlin.*,com.tinkerpop.gremlin.java.*,com.tinkerpop.gremlin.pipes.filter.*,com.tinkerpop.gremlin.pipes.sideeffect.*,com.tinkerpop.gremlin.pipes.transform.*,com.tinkerpop.blueprints.*,com.tinkerpop.blueprints.impls.*,com.tinkerpop.blueprints.impls.tg.*,com.tinkerpop.blueprints.impls.neo4j.*,com.tinkerpop.blueprints.impls.neo4j.batch.*,com.tinkerpop.blueprints.impls.orient.*,com.tinkerpop.blueprints.impls.orient.batch.*,com.tinkerpop.blueprints.impls.dex.*,com.tinkerpop.blueprints.impls.rexster.*,com.tinkerpop.blueprints.impls.sail.*,com.tinkerpop.blueprints.impls.sail.impls.*,com.tinkerpop.blueprints.util.*,com.tinkerpop.blueprints.util.io.*,com.tinkerpop.blueprints.util.io.gml.*,com.tinkerpop.blueprints.util.io.graphml.*,com.tinkerpop.blueprints.util.io.graphson.*,com.tinkerpop.blueprints.util.wrappers.*,com.tinkerpop.blueprints.util.wrappers.batch.*,com.tinkerpop.blueprints.util.wrappers.batch.cache.*,com.tinkerpop.blueprints.util.wrappers.event.*,com.tinkerpop.blueprints.util.wrappers.event.listener.*,com.tinkerpop.blueprints.util.wrappers.id.*,com.tinkerpop.blueprints.util.wrappers.partition.*,com.tinkerpop.blueprints.util.wrappers.readonly.*,com.tinkerpop.blueprints.oupls.sail.*,com.tinkerpop.blueprints.oupls.sail.pg.*,com.tinkerpop.blueprints.oupls.jung.*,com.tinkerpop.pipes.*,com.tinkerpop.pipes.branch.*,com.tinkerpop.pipes.filter.*,com.tinkerpop.pipes.sideeffect.*,com.tinkerpop.pipes.transform.*,com.tinkerpop.pipes.util.*,com.tinkerpop.pipes.util.iterators.*,com.tinkerpop.pipes.util.structures.*,org.apache.commons.configuration.*,com.thinkaurelius.titan.core.*,com.thinkaurelius.titan.core.attribute.*,com.thinkaurelius.titan.core.util.*,com.thinkaurelius.titan.example.*,org.apache.commons.configuration.*,com.tinkerpop.gremlin.Tokens.T,com.tinkerpop.gremlin.groovy.*</imports>
-            <static-imports>com.tinkerpop.blueprints.Direction.*,com.tinkerpop.blueprints.TransactionalGraph$Conclusion.*,com.tinkerpop.blueprints.Compare.*,com.thinkaurelius.titan.core.attribute.Geo.*,com.thinkaurelius.titan.core.attribute.Text.*,com.thinkaurelius.titan.core.TypeMaker$UniquenessConsistency.*,com.tinkerpop.blueprints.Query$Compare.*</static-imports>
+	    <% if node[:titan][:rexster][:script_engines][:init_scripts] != nil -%>
+	    <init-scripts><%= node[:titan][:rexster][:script_engines][:init_scripts] %></init-scripts>
+	    <% end -%>
+            <imports><%= node[:titan][:rexster][:script_engines][:imports] %></imports>
+            <static-imports><%= node[:titan][:rexster][:script_engines][:static_imports] %></static-imports>
         </script-engine>
     </script-engines>
     <security>
@@ -95,11 +98,15 @@
             <!-- <graph-location>/tmp/titan</graph-location> -->
             <graph-read-only>false</graph-read-only>
             <properties>
-                <storage.backend>cassandra</storage.backend>
-                <storage.index.search.backend>elasticsearch</storage.index.search.backend>
+                <storage.backend><%= node[:titan][:storage][:storage_backend] %></storage.backend>
+                <cache.db-cache><%= node[:titan][:storage][:db_cache] %></cache.db-cache>
+                <cache.db-cache-size><%= node[:titan][:storage][:db_cache_size] %></cache.db-cache-size>
+                <cache.db-cache-time><%= node[:titan][:storage][:db_cache_time] %></cache.db-cache-time>		
+                <storage.index.search.backend><%= node[:titan][:storage][:index_backend] %></storage.index.search.backend>
                 <storage.index.search.directory><%= node[:titan][:storage][:index_directory] %></storage.index.search.directory>
                 <storage.index.search.client-only><%= node[:titan][:storage][:index_client_only] %></storage.index.search.client-only>
                 <storage.index.search.local-mode><%= node[:titan][:storage][:index_local_mode] %></storage.index.search.local-mode>
+		<storage.index.search.hostname><%= node[:titan][:storage][:index_hostname] %></storage.index.search.hostname>
             </properties>
             <extensions>
               <allows>
