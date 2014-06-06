@@ -25,7 +25,7 @@ Cookbook dependecies managed by Berkshelf (see Berskfile)
 4. cookbook_root$ vagrant plugin install vagrant-omnibus
 5. cookbook_root$ vagrant plugin install vagrant-berkshelf
 6. cookbook_root$ berks install
-7. cookbook_root$ vagrant up
+7. cookbook_root$ vagrant up --provision
 8. cookbook_root$ curl http://33.33.33.28:8182/graphs/
 
 
