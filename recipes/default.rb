@@ -15,8 +15,8 @@ end
 
 
 td          = Dir.tmpdir
-tmp         = File.join(td, "titan-server-#{node.titan.version}.zip")
-zip_dir = File.join(td, "titan-server-#{node.titan.version}")
+tmp         = File.join(td, "titan-#{node.titan.version}.zip")
+zip_dir = File.join(td, "titan-#{node.titan.version}")
 
 remote_file(tmp) do
   source node.titan.download_url

@@ -1,6 +1,7 @@
 Vagrant.configure("2") do |config|
   config.vm.box = "precise64"
   config.omnibus.chef_version = :latest
+  config.berkshelf.berksfile_path = "Berksfile"
   config.berkshelf.enabled = true
 
   config.vm.define :titan do |titan|
