@@ -3,9 +3,7 @@ maintainer       "Brian Cajes"
 maintainer_email "brian.cajes@gmail.com"
 license          "Apache 2.0"
 description      "Installs/Configures Titan Server with Cassandra storage backend and ElasticSearch index backend"
-long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-source_url	 "https://github.com/bcajes/titan-cookbook"
-supports	 "ubuntu"
+supports         "ubuntu"
 version          "1.2.4"
 
 
