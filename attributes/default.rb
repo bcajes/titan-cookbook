@@ -1,4 +1,4 @@
-#Titan 0.4+ runs on java 7
+#Titan 0.5+ runs on java 7
 default['java']['jdk_version'] = '7'
 
 
