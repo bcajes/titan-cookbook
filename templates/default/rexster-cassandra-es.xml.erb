@@ -104,8 +104,8 @@
                 <cache.db-cache-time><%= node[:titan][:storage][:db_cache_time] %></cache.db-cache-time>		
                 <index.search.backend><%= node[:titan][:storage][:index_backend] %></index.search.backend>
                 <index.search.directory><%= node[:titan][:storage][:index_directory] %></index.search.directory>
-                <index.search.client-only><%= node[:titan][:storage][:index_client_only] %></index.search.client-only>
-                <index.search.local-mode><%= node[:titan][:storage][:index_local_mode] %></index.search.local-mode>
+                <index.search.elasticsearch.client-only><%= node[:titan][:storage][:index_client_only] %></index.search.elasticsearch.client-only>
+                <index.search.elasticsearch.cluster-name><%= node[:titan][:storage][:index_cluster_name] %></index.search.elasticsearch.cluster-name>
 		<index.search.hostname><%= node[:titan][:storage][:index_hostname] %></index.search.hostname>
             </properties>
             <extensions>

@@ -28,8 +28,8 @@ default[:titan][:storage] = {
   :index_backend => "elasticsearch",
   :index_directory => File.join("#{node.titan.installation_dir}","db/es"),
   :index_client_only => false, #Whether this node is client node with no data. https://github.com/thinkaurelius/titan/wiki/Using-Elastic-Search
-  :index_local_mode => true,
-  :index_hostname => "127.0.0.1" #hostname of ES if not running embedded
+  :index_hostname => "127.0.0.1", #hostname of ES if not running embedded
+  :index_cluster_name => "elasticsearch"
 }
 
 #reference: https://github.com/tinkerpop/rexster/wiki/Rexster-Configuration
