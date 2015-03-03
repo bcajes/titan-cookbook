@@ -4,7 +4,7 @@ default['java']['jdk_version'] = '7'
 
 
 #titan attributes
-default[:titan] = {
+default['titan'] = {
   :installation_dir => "/opt/titan/",
   :version => "0.5.2-hadoop1",  
   :user => "titan", 
@@ -12,29 +12,29 @@ default[:titan] = {
   :install_dir_permissions => "755"
 }
 
-default[:titan][:conf_dir] = File.join("#{default[:titan][:installation_dir]}", "conf")
-default[:titan][:start_command] = File.join("#{default[:titan][:installation_dir]}", "bin/titan.sh") + " -v -c cassandra-es start"
-default[:titan][:stop_command] = File.join("#{default[:titan][:installation_dir]}", "bin/titan.sh") + " stop"
+default['titan']['conf_dir'] = File.join(default['titan']['installation_dir'], 'conf')
+default['titan']['start_command'] = File.join(default['titan']['installation_dir'], 'bin/titan.sh') + ' -v -c cassandra-es start'
+default['titan']['stop_command'] = File.join(default['titan']['installation_dir'], 'bin/titan.sh') + ' stop'
 
 
-default[:titan][:storage] = {
-  :properties => File.join("#{node.titan.conf_dir}","titan-server-cassandra-es.properties"),
-  :cassandra_config => File.join("#{node.titan.conf_dir}","cassandra.yaml"),
-  :storage_backend => "cassandra",
+default['titan']['storage'] = {
+  :properties => File.join(node['titan']['conf_dir'], 'titan-server-cassandra-es.properties'),
+  :cassandra_config => File.join(node['titan']['conf_dir'],'cassandra.yaml'),
+  :storage_backend => 'cassandra',
   :db_cache => true,
   :db_cache_clean_wait => 0,
   :db_cache_time => 0,
   :db_cache_size => 0.25,
-  :index_backend => "elasticsearch",
-  :index_directory => File.join("#{node.titan.installation_dir}","db/es"),
+  :index_backend => 'elasticsearch',
+  :index_directory => File.join(node['titan']['installation_dir'],"db/es"),
   :index_client_only => false, #Whether this node is client node with no data. https://github.com/thinkaurelius/titan/wiki/Using-Elastic-Search
   :index_hostname => "127.0.0.1", #hostname of ES if not running embedded
   :index_cluster_name => "elasticsearch"
 }
 
 #reference: https://github.com/tinkerpop/rexster/wiki/Rexster-Configuration
-default[:titan][:rexster] = {
-  :config => File.join("#{node.titan.conf_dir}","rexster-cassandra-es.xml"),
+default['titan']['rexster'] = {
+  :config => File.join(node'[titan']['conf_dir'],'rexster-cassandra-es.xml'),
   :http => {
     :server_port => 8182,
     :server_host => '0.0.0.0',
@@ -102,12 +102,12 @@ default[:titan][:rexster] = {
 
 # set to false if you want to manage your own cassandra.yaml file,
 # which is useful for more specialized configurations
-default[:titan][:manage_cassandra_config] = true
+default['titan']['manage_cassandra_config'] = true
 
 # TODO add useful cassandra attributes
 
 # see cassandra.yaml.erb for documentation on these options
-default[:titan][:cassandra] = {
+default['titan']['cassandra'] = {
   :broadcast_address => '',
   :concurrent_reads => 32,
   :concurrent_writes => 32,
@@ -119,12 +119,8 @@ default[:titan][:cassandra] = {
   :seeds => '127.0.0.1'
 }
 
-default[:titan][:ext_pkgs] = [
+default['titan']['ext_pkgs'] = [
                               #{:file_name => ext_pkg.jar, :uri => ftp://user:pw@example.com/ext/ext_pkg.jar}
                              ]
 
-default[:titan][:download_url] = "http://s3.thinkaurelius.com/downloads/titan/titan-#{node[:titan][:version]}.zip"
-
-
-
-
+default['titan']['download_url'] = "http://s3.thinkaurelius.com/downloads/titan/titan-#{node['titan']['version']}.zip"

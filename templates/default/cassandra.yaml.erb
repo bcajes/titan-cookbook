@@ -50,7 +50,7 @@ initial_token: <%= @initial_token %>
 # May either be "true" or "false" to enable globally, or contain a list
 # of data centers to enable per-datacenter.
 # hinted_handoff_enabled: DC1,DC2
-# See http://wiki.apache.org/cassandra/HintedHandoff
+# See http://wiki.apache.org/cassandraointedHandoff
 hinted_handoff_enabled: true
 # this defines the maximum amount of time a dead host will have hints
 # generated.  After it has been dead this long, new hints for it will not be
@@ -361,7 +361,7 @@ start_rpc: true
 # Note that unlike ListenAddress above, it is allowed to specify 0.0.0.0
 # here if you want to listen on all interfaces, but that will break clients 
 # that rely on node auto-discovery.
-rpc_address: 0.0.0.0
+rpc_address: <%= @rpc_address %>
 # port for Thrift to listen for clients on
 rpc_port: 9160
 
