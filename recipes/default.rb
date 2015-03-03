@@ -1,8 +1,7 @@
-include_recipe "java"
-
+include_recipe 'java'
 
 # 1. Download the Zip to /tmp
-require "tmpdir"
+require 'tmpdir'
 
 group node['titan']['group'] do
   action :create
@@ -38,11 +37,11 @@ package 'unzip'
 bash "extract #{tmp}, move it to #{node['titan']['installation_dir']}" do
   user node['titan']['user']
   group node['titan']['group']
-  cwd  '/tmp'
+  cwd '/tmp'
 
   code <<-EOS
     unzip -o #{tmp}
-    mkdir -p $(dirname #{node['titan']['installation_dir']}) 
+    mkdir -p $(dirname #{node['titan']['installation_dir']})
     mv --force #{zip_dir}/* #{node['titan']['installation_dir']}
     rmdir #{zip_dir}
   EOS
@@ -50,46 +49,46 @@ bash "extract #{tmp}, move it to #{node['titan']['installation_dir']}" do
   creates "#{node['titan']['installation_dir']}/bin/titan.sh"
 end
 
-#create cassandra configuration
+# create cassandra configuration
 template node['titan']['storage']['cassandra_config'] do
   source 'cassandra.yaml.erb'
   owner node['titan']['user']
   group node['titan']['group']
-  mode  node['titan']['install_dir_permissions']
+  mode node['titan']['install_dir_permissions']
   variables(
-    :broadcast_address => node['titan']['cassandra']['broadcast_address'],
-    :concurrent_reads => node['titan']['cassandra']['concurrent_reads'],
-    :concurrent_writes => node['titan']['cassandra']['concurrent_writes'],
-    :cluster_name => node['titan']['cassandra']['cluster_name'], 
-    :initial_token => node['titan']['cassandra']['initial_token'],
-    :listen_address => node['titan']['cassandra']['listen_address'],
-    :num_tokens => node['titan']['cassandra']['num_tokens'],
-    :rpc_address => node['titan']['cassandra']['rpc_address'],
-    :seeds => node['titan']['cassandra']['seeds']
+    broadcast_address: node['titan']['cassandra']['broadcast_address'],
+    concurrent_reads: node['titan']['cassandra']['concurrent_reads'],
+    concurrent_writes: node['titan']['cassandra']['concurrent_writes'],
+    cluster_name: node['titan']['cassandra']['cluster_name'],
+    initial_token: node['titan']['cassandra']['initial_token'],
+    listen_address: node['titan']['cassandra']['listen_address'],
+    num_tokens: node['titan']['cassandra']['num_tokens'],
+    rpc_address: node['titan']['cassandra']['rpc_address'],
+    seeds: node['titan']['cassandra']['seeds']
   )
   only_if node['titan']['manage_cassandra_config']
 end
-  
-#create properties file
+
+# create properties file
 template node['titan']['storage']['properties'] do
-    source 'titan-server-cassandra-es.properties.erb'
-    owner node['titan']['user']
-    group node['titan']['group']
-    mode  node['titan']['install_dir_permissions']
-  end
+  source 'titan-server-cassandra-es.properties.erb'
+  owner node['titan']['user']
+  group node['titan']['group']
+  mode node['titan']['install_dir_permissions']
+end
 
-#create rexster server conf
+# create rexster server conf
 template node['titan']['rexster']['config'] do
-    source 'rexster-cassandra-es.xml.erb'
-    owner node['titan']['user']
-    group node['titan']['group']
-    mode  node['titan']['install_dir_permissions']
-  end
+  source 'rexster-cassandra-es.xml.erb'
+  owner node['titan']['user']
+  group node['titan']['group']
+  mode node['titan']['install_dir_permissions']
+end
 
-#handle external dependencies/jars
+# handle external dependencies/jars
 include_recipe 'titan::ext'
 
-#setup upstart script
+# setup upstart script
 template '/etc/init/titan.conf' do
   source 'titan.upstart.conf.erb'
   owner 'root'
@@ -99,6 +98,6 @@ end
 
 service 'titan' do
   provider Chef::Provider::Service::Upstart
-  supports :start => true, :status => true, :stop => true
+  supports start: true, status: true, stop: true
   action [:start]
 end
