@@ -1,11 +1,11 @@
-storage.backend=<%= node[:titan][:storage][:storage_backend] %>
-storage.cassandra-config-dir=file://<%= node[:titan][:storage][:cassandra_config] %>
-cache.db-cache=<%= node[:titan][:storage][:db_cache] %>
-cache.db-cache-clean-wait=<%= node[:titan][:storage][:db_cache_clean_wait] %>
-cache.db-cache-time=<%= node[:titan][:storage][:db_cache_time] %>
-cache.db-cache-size=<%= node[:titan][:storage][:db_cache_size] %>
+storage.backend=<%= node['titan']['storage']['storage_backend'] %>
+storage.cassandra-config-dir=file'//<%= node['titan']['storage']['cassandra_config'] %>
+cache.db-cache=<%= node['titan']['storage']['db_cache'] %>
+cache.db-cache-clean-wait=<%= node['titan']['storage']['db_cache_clean_wait'] %>
+cache.db-cache-time=<%= node['titan']['storage']['db_cache_time'] %>
+cache.db-cache-size=<%= node['titan']['storage']['db_cache_size'] %>
 
-storage.index.search.backend=<%= node[:titan][:storage][:index_backend] %>
-storage.index.search.directory=<%= node[:titan][:storage][:index_directory] %>
-storage.index.search.client-only=<%= node[:titan][:storage][:index_client_only] %>
-storage.index.search.local-mode=<%= node[:titan][:storage][:index_local_mode] %>
+storage.index.search.backend=<%= node['titan']['storage']['index_backend'] %>
+storage.index.search.directory=<%= node['titan']['storage']['index_directory'] %>
+storage.index.search.client-only=<%= node['titan']['storage']['index_client_only'] %>
+storage.index.search.local-mode=<%= node['titan']['storage']['index_local_mode'] %>

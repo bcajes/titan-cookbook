@@ -1,0 +1,27 @@
+---
+driver:
+  name: vagrant
+
+driver_config:
+  require_chef_omnibus: true
+
+platforms:
+- name: ubuntu-12.04
+- name: ubuntu-14.04
+- name: centos-6.6
+
+provisioner:
+    name: chef_zero
+
+suites:
+- name: default
+  run_list:
+    - "recipe[titan]"
+  attributes:
+- name: source
+  run_list:
+    - "recipe[titan]"
+  attributes:
+    zabbix:
+      agent:
+        install_method: "source"

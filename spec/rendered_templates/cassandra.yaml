@@ -7,7 +7,7 @@
 
 # The name of the cluster. This is mainly used to prevent machines in
 # one logical cluster from joining another.
-cluster_name: '<%= @cluster_name %>'
+cluster_name: 'Titan Test Cluster'
 
 # This defines the number of tokens randomly assigned to this node on the ring
 # The more tokens, relative to other nodes, the larger the proportion of data
@@ -29,22 +29,14 @@ cluster_name: '<%= @cluster_name %>'
 # production Titan instances backed by Cassandra.  This low value is just
 # for development and testing.
 #num_tokens: 256
-<% if @num_tokens.nil? %>
 num_tokens: 4
-<% else %>
-num_tokens: <%= @num_tokens %>
-<% end %>
 
 
 # initial_token allows you to specify tokens manually.  While you can use # it with
 # vnodes (num_tokens > 1, above) -- in which case you should provide a
 # comma-separated list -- it's primarily used when adding nodes # to legacy clusters
 # that do not have vnodes enabled.
-<% if @initial_token.nil? %>
 # initial_token:
-<% else %>
-initial_token: <%= @initial_token %>
-<% end %>
 
 
 # May either be "true" or "false" to enable globally, or contain a list
@@ -252,7 +244,7 @@ seed_provider:
       parameters:
           # seeds is actually a comma-delimited list of addresses.
           # Ex: "<ip1>,<ip2>,<ip3>"
-          - seeds: "<%= @seeds %>"
+          - seeds: "127.0.0.1"
 
 # For workloads with more data than can fit in memory, Cassandra's
 # bottleneck will be reads that need to fetch data from
@@ -263,8 +255,8 @@ seed_provider:
 # On the other hand, since writes are almost never IO bound, the ideal
 # number of "concurrent_writes" is dependent on the number of cores in
 # your system; (8 * number_of_cores) is a good rule of thumb.
-concurrent_reads: <%= @concurrent_reads %>
-concurrent_writes: <%= @concurrent_writes %>
+concurrent_reads: 32
+concurrent_writes: 32
 
 
 # Total memory to use for sstable-reading buffers.  Defaults to
@@ -323,11 +315,11 @@ ssl_storage_port: 7001
 # address associated with the hostname (it might not be).
 #
 # Setting this to 0.0.0.0 is always wrong.
-listen_address: <%= @listen_address %>
+listen_address: localhost
 
 # Address to broadcast to other Cassandra nodes
 # Leaving this blank will set it to the same value as listen_address
-broadcast_address: <%= @broadcast_address %>
+broadcast_address: 
 
 # Internode authentication backend, implementing IInternodeAuthenticator;
 # used to allow/disallow connections from peer nodes.
@@ -361,7 +353,7 @@ start_rpc: true
 # Note that unlike ListenAddress above, it is allowed to specify 0.0.0.0
 # here if you want to listen on all interfaces, but that will break clients
 # that rely on node auto-discovery.
-rpc_address: <%= @rpc_address %>
+rpc_address: localhost
 # port for Thrift to listen for clients on
 rpc_port: 9160
 

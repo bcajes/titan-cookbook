@@ -1,46 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rexster>
     <http>
-        <server-port><%= node[:titan][:rexster][:http][:server_port] %></server-port>
-        <server-host><%= node[:titan][:rexster][:http][:server_host] %></server-host>
-        <base-uri><%= node[:titan][:rexster][:http][:base_uri] %></base-uri>
-        <character-set><%= node[:titan][:rexster][:http][:character_set] %></character-set>
-        <enable-jmx><%= node[:titan][:rexster][:http][:enable_jmx] %></enable-jmx>
-        <enable-doghouse><%= node[:titan][:rexster][:http][:enable_doghouse] %></enable-doghouse>
-        <max-post-size><%= node[:titan][:rexster][:http][:max_post_size] %></max-post-size>
-        <max-header-size><%= node[:titan][:rexster][:http][:max_header_size] %></max-header-size>
-        <upload-timeout-millis><%= node[:titan][:rexster][:http][:upload_timeout_millis] %></upload-timeout-millis>
+        <server-port><%= node['titan']['rexster']['http']['server_port'] %></server-port>
+        <server-host><%= node['titan']['rexster']['http']['server_host'] %></server-host>
+        <base-uri><%= node['titan']['rexster']['http']['base_uri'] %></base-uri>
+        <character-set><%= node['titan']['rexster']['http']['character_set'] %></character-set>
+        <enable-jmx><%= node['titan']['rexster']['http']['enable_jmx'] %></enable-jmx>
+        <enable-doghouse><%= node['titan']['rexster']['http']['enable_doghouse'] %></enable-doghouse>
+        <max-post-size><%= node['titan']['rexster']['http']['max_post_size'] %></max-post-size>
+        <max-header-size><%= node['titan']['rexster']['http']['max_header_size'] %></max-header-size>
+        <upload-timeout-millis><%= node['titan']['rexster']['http']['upload_timeout_millis'] %></upload-timeout-millis>
         <thread-pool>
             <worker>
-                <core-size><%= node[:titan][:rexster][:http][:thread_pool][:worker][:core_size] %></core-size>
-                <max-size><%= node[:titan][:rexster][:http][:thread_pool][:worker][:max_size] %></max-size>
+                <core-size><%= node['titan']['rexster']['http']['thread_pool']['worker']['core_size'] %></core-size>
+                <max-size><%= node['titan']['rexster']['http']['thread_pool']['worker']['max_size'] %></max-size>
             </worker>
             <kernal>
-                <core-size><%= node[:titan][:rexster][:http][:thread_pool][:kernal][:core_size] %></core-size>
-                <max-size><%= node[:titan][:rexster][:http][:thread_pool][:kernal][:max_size] %></max-size>
+                <core-size><%= node['titan']['rexster']['http']['thread_pool']['kernal']['core_size'] %></core-size>
+                <max-size><%= node['titan']['rexster']['http']['thread_pool']['kernal']['max_size'] %></max-size>
             </kernal>
         </thread-pool>
-        <io-strategy><%= node[:titan][:rexster][:http][:io_strategy] %></io-strategy>
+        <io-strategy><%= node['titan']['rexster']['http']['io_strategy'] %></io-strategy>
     </http>
     <rexpro>
-      <server-port><%= node[:titan][:rexster][:rexpro][:server_port] %></server-port>
-      <server-host><%= node[:titan][:rexster][:rexpro][:server_host] %></server-host>
-        <session-max-idle><%= node[:titan][:rexster][:rexpro][:session_max_idle] %></session-max-idle>
-        <session-check-interval><%= node[:titan][:rexster][:rexpro][:session_check_interval] %></session-check-interval>
-        <connection-max-idle><%= node[:titan][:rexster][:rexpro][:connection_max_idle] %></connection-max-idle>
-        <connection-check-interval><%= node[:titan][:rexster][:rexpro][:connection_check_interval] %></connection-check-interval>
-        <enable-jmx><%= node[:titan][:rexster][:rexpro][:enable_jmx] %></enable-jmx>
+      <server-port><%= node['titan']['rexster']['rexpro']['server_port'] %></server-port>
+      <server-host><%= node['titan']['rexster']['rexpro']['server_host'] %></server-host>
+        <session-max-idle><%= node['titan']['rexster']['rexpro']['session_max_idle'] %></session-max-idle>
+        <session-check-interval><%= node['titan']['rexster']['rexpro']['session_check_interval'] %></session-check-interval>
+        <connection-max-idle><%= node['titan']['rexster']['rexpro']['connection_max_idle'] %></connection-max-idle>
+        <connection-check-interval><%= node['titan']['rexster']['rexpro']['connection_check_interval'] %></connection-check-interval>
+        <enable-jmx><%= node['titan']['rexster']['rexpro']['enable_jmx'] %></enable-jmx>
         <thread-pool>
             <worker>
-                <core-size><%= node[:titan][:rexster][:rexpro][:thread_pool][:worker][:core_size] %></core-size>
-                <max-size><%= node[:titan][:rexster][:rexpro][:thread_pool][:worker][:max_size] %></max-size>
+                <core-size><%= node['titan']['rexster']['rexpro']['thread_pool']['worker']['core_size'] %></core-size>
+                <max-size><%= node['titan']['rexster']['rexpro']['thread_pool']['worker']['max_size'] %></max-size>
             </worker>
             <kernal>
-                <core-size><%= node[:titan][:rexster][:rexpro][:thread_pool][:kernal][:core_size] %></core-size>
-                <max-size><%= node[:titan][:rexster][:rexpro][:thread_pool][:kernal][:max_size] %></max-size>
+                <core-size><%= node['titan']['rexster']['rexpro']['thread_pool']['kernal']['core_size'] %></core-size>
+                <max-size><%= node['titan']['rexster']['rexpro']['thread_pool']['kernal']['max_size'] %></max-size>
             </kernal>
         </thread-pool>
-        <io-strategy><%= node[:titan][:rexster][:rexpro][:io_strategy] %></io-strategy>
+        <io-strategy><%= node['titan']['rexster']['rexpro']['io_strategy'] %></io-strategy>
     </rexpro>
     <shutdown-port>8183</shutdown-port>
     <shutdown-host>127.0.0.1</shutdown-host>
@@ -48,30 +48,30 @@
         <script-engine>
             <name>gremlin-groovy</name>
             <reset-threshold>-1</reset-threshold>
-	    <% if node[:titan][:rexster][:script_engines][:init_scripts] != nil -%>
-	    <init-scripts><%= node[:titan][:rexster][:script_engines][:init_scripts] %></init-scripts>
+	    <% if node['titan']['rexster']['script_engines']['init_scripts'] != nil -%>
+	    <init-scripts><%= node['titan']['rexster']['script_engines']['init_scripts'] %></init-scripts>
 	    <% end -%>
-            <imports><%= node[:titan][:rexster][:script_engines][:imports] %></imports>
-            <static-imports><%= node[:titan][:rexster][:script_engines][:static_imports] %></static-imports>
+            <imports><%= node['titan']['rexster']['script_engines']['imports'] %></imports>
+            <static-imports><%= node['titan']['rexster']['script_engines']['static_imports'] %></static-imports>
         </script-engine>
     </script-engines>
     <security>
       <authentication>
-        <type><%= node[:titan][:rexster][:security][:authentication][:type] %></type>
+        <type><%= node['titan']['rexster']['security']['authentication']['type'] %></type>
 	<configuration>
           <users>
-	    <% node[:titan][:rexster][:security][:authentication][:configuration][:users].each do |user| %>
+	    <% node['titan']['rexster']['security']['authentication']['configuration']['users'].each do |user| %>
 	    <user>
-	      <username><%= user[:username] %></username>
-	      <password><%= user[:password] %></password>
+	      <username><%= user['username'] %></username>
+	      <password><%= user['password'] %></password>
 	    </user>
 	    <% end %>
           </users>
 	</configuration>
       </authentication>
     </security>
-    <shutdown-port><%= node[:titan][:rexster][:shutdown_port] %></shutdown-port>
-    <shutdown-host><%= node[:titan][:rexster][:shutdown_host] %></shutdown-host>
+    <shutdown-port><%= node['titan']['rexster']['shutdown_port'] %></shutdown-port>
+    <shutdown-host><%= node['titan']['rexster']['shutdown_host'] %></shutdown-host>
     <metrics>
         <reporter>
             <type>jmx</type>
@@ -98,19 +98,19 @@
             <!-- <graph-location>/tmp/titan</graph-location> -->
             <graph-read-only>false</graph-read-only>
             <properties>
-                <storage.backend><%= node[:titan][:storage][:storage_backend] %></storage.backend>
-                <cache.db-cache><%= node[:titan][:storage][:db_cache] %></cache.db-cache>
-                <cache.db-cache-size><%= node[:titan][:storage][:db_cache_size] %></cache.db-cache-size>
-                <cache.db-cache-time><%= node[:titan][:storage][:db_cache_time] %></cache.db-cache-time>		
-                <index.search.backend><%= node[:titan][:storage][:index_backend] %></index.search.backend>
-                <index.search.directory><%= node[:titan][:storage][:index_directory] %></index.search.directory>
-                <index.search.elasticsearch.client-only><%= node[:titan][:storage][:index_client_only] %></index.search.elasticsearch.client-only>
-                <index.search.elasticsearch.cluster-name><%= node[:titan][:storage][:index_cluster_name] %></index.search.elasticsearch.cluster-name>
-		<index.search.hostname><%= node[:titan][:storage][:index_hostname] %></index.search.hostname>
+                <storage.backend><%= node['titan']['storage']['storage_backend'] %></storage.backend>
+                <cache.db-cache><%= node['titan']['storage']['db_cache'] %></cache.db-cache>
+                <cache.db-cache-size><%= node['titan']['storage']['db_cache_size'] %></cache.db-cache-size>
+                <cache.db-cache-time><%= node['titan']['storage']['db_cache_time'] %></cache.db-cache-time>		
+                <index.search.backend><%= node['titan']['storage']['index_backend'] %></index.search.backend>
+                <index.search.directory><%= node['titan']['storage']['index_directory'] %></index.search.directory>
+                <index.search.elasticsearch.client-only><%= node['titan']['storage']['index_client_only'] %></index.search.elasticsearch.client-only>
+                <index.search.elasticsearch.cluster-name><%= node['titan']['storage']['index_cluster_name'] %></index.search.elasticsearch.cluster-name>
+		<index.search.hostname><%= node['titan']['storage']['index_hostname'] %></index.search.hostname>
             </properties>
             <extensions>
               <allows>
-                <allow>tp:gremlin</allow>
+                <allow>tp'gremlin</allow>
               </allows>
             </extensions>
         </graph>
