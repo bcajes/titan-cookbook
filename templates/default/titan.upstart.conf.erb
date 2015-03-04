@@ -18,14 +18,10 @@ stop on runlevel [016]
 respawn
 
 pre-start script
-	  exec sudo -u <%= node.titan.user%> <%= node.titan.start_command %> 
-	  sleep 5
+  exec sudo -u <%= node.titan.user%> <%= node.titan.start_command %>
+  sleep 5
 end script
 post-stop script
-	  exec sudo -u <%= node.titan.user %> <%= node.titan.stop_command %> 
-	  sleep 5
+  exec sudo -u <%= node.titan.user %> <%= node.titan.stop_command %>
+  sleep 5
 end script
-
-
-
-
