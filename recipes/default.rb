@@ -12,11 +12,11 @@ user node['titan']['user'] do
   home node['titan']['installation_dir']
 end
 
-td          = Dir.tmpdir
-tmp         = File.join(td, "titan-#{node['titan']['version']}.zip")
+td      = Dir.tmpdir
+tmp     = File.join(td, "titan-#{node['titan']['version']}.zip")
 zip_dir = File.join(td, "titan-#{node['titan']['version']}")
 
-remote_file(tmp) do
+remote_file tmp do
   source node['titan']['download_url']
   action :create_if_missing
   owner node['titan']['user']
@@ -66,7 +66,7 @@ template node['titan']['storage']['cassandra_config'] do
     rpc_address: node['titan']['cassandra']['rpc_address'],
     seeds: node['titan']['cassandra']['seeds']
   )
-  only_if node['titan']['manage_cassandra_config']
+  only_if { node['titan']['manage_cassandra_config'] }
 end
 
 # create properties file
